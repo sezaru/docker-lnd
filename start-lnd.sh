@@ -44,6 +44,7 @@ RPCPASS=$(set_default "$RPCPASS" "devpass")
 DEBUG=$(set_default "$DEBUG" "debug")
 NETWORK=$(set_default "$NETWORK" "simnet")
 CHAIN=$(set_default "$CHAIN" "bitcoin")
+EXTERNAL_IP=$(set_default "$EXTERNAL_IP" "127.0.0.1")
 
 lnd \
     --noencryptwallet \
@@ -54,5 +55,6 @@ lnd \
     "--$CHAIN.rpchost"="blockchain" \
     "--$CHAIN.rpcuser"="$RPCUSER" \
     "--$CHAIN.rpcpass"="$RPCPASS" \
-    --debuglevel="$DEBUG" \
-"$@"
+    "--debuglevel=$DEBUG" \
+    "--external-ip=$EXTERNAL_IP" \
+    "$@"
