@@ -6,4 +6,3 @@ To build image: `docker build . -t lightningsale/docker-lnd`
 
 # TODO:
  - Specify lnd version
- - Don't use Richard87s fork
