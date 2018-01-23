@@ -19,6 +19,7 @@ docker run \
  -e RPCLISTEN=0.0.0.0:10009 \
  -v /root/.lnd:/root/.lnd \
  -p 127.0.0.1:10009:10009 \
+ -p 127.0.0.1:8080:8080 \
  --name lnd \
  --entrypoint="./start-lnd.sh" \
  lightningsale/docker-lnd \
