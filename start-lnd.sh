@@ -45,6 +45,7 @@ DEBUG=$(set_default "$DEBUG" "debug")
 NETWORK=$(set_default "$NETWORK" "simnet")
 CHAIN=$(set_default "$CHAIN" "bitcoin")
 EXTERNALIP=$(set_default "$EXTERNALIP" "127.0.0.1")
+RPCPORT=$(set_default "$RPCPORT" "10009")
 
 lnd \
     --noencryptwallet \
@@ -57,4 +58,6 @@ lnd \
     "--$CHAIN.rpcpass"="$RPCPASS" \
     "--debuglevel=$DEBUG" \
     "--externalip=$EXTERNALIP" \
+    "--rpclisten=127.0.0.1:$RPCPORT" \
+    "--restlisten=127.0.0.1:$RPCPORT" \
     "$@"
