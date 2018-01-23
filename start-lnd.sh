@@ -45,19 +45,25 @@ DEBUG=$(set_default "$DEBUG" "debug")
 NETWORK=$(set_default "$NETWORK" "simnet")
 CHAIN=$(set_default "$CHAIN" "bitcoin")
 EXTERNALIP=$(set_default "$EXTERNALIP" "127.0.0.1")
-RPCPORT=$(set_default "$RPCPORT" "10009")
+RPCLISTEN=$(set_default "$RPCLISTEN" "localhost:10009")
+RESTLISTEN=$(set_default "$RESTLISTEN" "0.0.0.0:8080")
+BACKEND="btcd"
+if [[ "$CHAIN" == "litecoin" ]]; then
+    BACKEND="ltcd"
+fi
 
 lnd \
     --noencryptwallet \
     --logdir="/data" \
-    "--$CHAIN.rpccert"="/rpc/rpc.cert" \
     "--$CHAIN.active" \
     "--$CHAIN.$NETWORK" \
-    "--$CHAIN.rpchost"="blockchain" \
-    "--$CHAIN.rpcuser"="$RPCUSER" \
-    "--$CHAIN.rpcpass"="$RPCPASS" \
-    "--debuglevel=$DEBUG" \
+    "--$CHAIN.node"="btcd" \
+    "--$BACKEND.rpccert"="/rpc/rpc.cert" \
+    "--$BACKEND.rpchost"="blockchain" \
+    "--$BACKEND.rpcuser"="$RPCUSER" \
+    "--$BACKEND.rpcpass"="$RPCPASS" \
     "--externalip=$EXTERNALIP" \
-    "--rpclisten=127.0.0.1:$RPCPORT" \
-    "--restlisten=127.0.0.1:$RPCPORT" \
-    "$@"
+    "--rpclisten=$RPCLISTEN" \
+    "--restlisten=$RESTLISTEN" \
+    --debuglevel="$DEBUG" \
+"$@"

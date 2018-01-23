@@ -25,4 +25,4 @@ RUN go install . ./cmd/...
 COPY "start-lnd.sh" .
 RUN chmod +x start-lnd.sh
 
-CMD ["start-lnd.sh"]
+CMD ["./start-lnd.sh"]
