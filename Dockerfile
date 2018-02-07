@@ -1,9 +1,7 @@
-FROM golang:1.8
+FROM golang:alpine AS builder
 
 MAINTAINER Olaoluwa Osuntokun <lightning.engineering>
 
-# Expose lnd ports (server, rpc).
-EXPOSE 9735 8080 10009
 
 # Force Go to use the cgo based DNS resolver. This is required to ensure DNS
 # queries required to connect to linked containers succeed.
@@ -22,7 +20,13 @@ WORKDIR $GOPATH/src/github.com/lightningnetwork/lnd
 RUN glide install
 RUN go install . ./cmd/...
 
+
+FROM alpine
+ENV GODEBUG netdns=cgo
+# Expose lnd ports (server, rpc).
+EXPOSE 9735 8080 10009
 COPY "start-lnd.sh" .
+COPY --from=builder /go/bin/lnd /go/bin/lncli /usr/bin/
 RUN chmod +x start-lnd.sh
 
 CMD ["./start-lnd.sh"]
