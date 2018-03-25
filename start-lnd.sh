@@ -44,9 +44,6 @@ RPCPASS=$(set_default "$RPCPASS" "devpass")
 DEBUG=$(set_default "$DEBUG" "debug")
 NETWORK=$(set_default "$NETWORK" "simnet")
 CHAIN=$(set_default "$CHAIN" "bitcoin")
-EXTERNALIP=$(set_default "$EXTERNALIP" "127.0.0.1:9735")
-RPCLISTEN=$(set_default "$RPCLISTEN" "localhost:10009")
-RESTLISTEN=$(set_default "$RESTLISTEN" "0.0.0.0:8080")
 BACKEND="btcd"
 if [[ "$CHAIN" == "litecoin" ]]; then
     BACKEND="ltcd"
@@ -62,8 +59,5 @@ lnd \
     "--$BACKEND.rpchost"="blockchain" \
     "--$BACKEND.rpcuser"="$RPCUSER" \
     "--$BACKEND.rpcpass"="$RPCPASS" \
-    "--externalip=$EXTERNALIP" \
-    "--rpclisten=$RPCLISTEN" \
-    "--restlisten=$RESTLISTEN" \
     --debuglevel="$DEBUG" \
 "$@"
