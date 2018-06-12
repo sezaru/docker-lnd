@@ -19,7 +19,7 @@ RUN git clone https://github.com/sezaru/lnd $GOPATH/src/github.com/sezaru/lnd
 WORKDIR $GOPATH/src/github.com/sezaru/lnd
 
 # Change to 0.4.2 version tag
-RUN git checkout tags/v0.4.2-beta
+RUN git checkout tags/v0.4.2-beta -b v0_4_2
 
 # Install dependencies and install/build lnd.
 RUN dep ensure
