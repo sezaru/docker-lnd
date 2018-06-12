@@ -18,6 +18,9 @@ RUN git clone https://github.com/sezaru/lnd $GOPATH/src/github.com/sezaru/lnd
 # Make lnd folder default.
 WORKDIR $GOPATH/src/github.com/sezaru/lnd
 
+# Change to 0.4.2 version tag
+RUN git checkout tags/v0.4.2-beta
+
 # Install dependencies and install/build lnd.
 RUN dep ensure
 RUN go install . ./cmd/...
